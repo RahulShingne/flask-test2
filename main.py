@@ -22,7 +22,7 @@ def predict():
     X=df1[["Annual Income (Rs)","Spending Score (1-100)"]]
     X.head()
 
-    #from sklearn.cluster import KMeans
+    from sklearn.cluster import KMeans
     wcss=[]
 
     for i in range(1,11):

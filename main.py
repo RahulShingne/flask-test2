@@ -45,10 +45,11 @@ def predict():
     cust5=df1[df1["label"]==4]
     result = {
         
-        "Length":len(cust1),
-        "Clusters":cust1["CustomerID"].values,
-        "Leng":len(cust2),
-        "Clust":cust2["CustomerID"].values
+        "Cluster1":cust1["CustomerID"].values,
+        "Cluster2":cust2["CustomerID"].values,
+        "Cluster3":cust3["CustomerID"].values,
+        "Cluster4":cust4["CustomerID"].values,
+        "Cluster5":cust5["CustomerID"].values
 
 
     }

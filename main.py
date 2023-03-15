@@ -1,13 +1,13 @@
 from flask import Flask, jsonify
 import os
 
-application=Flask(__name__)
+app=Flask(__name__)
 
-@application.route('/')
+@app.route('/')
 def home():
     return "Hello World"
 
-@application.route('/predict/')
+@app.route('/predict/')
 def predict():
     '''income = request.form.get('Annual Income (Rs)')
     spending = request.form.get('Spending Score (1-100)')

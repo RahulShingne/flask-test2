@@ -15,7 +15,7 @@ def predict():
 
     input_query=np.array([[income,spending]])'''
 
-    data=pd.read_csv("Mall_Customers2.csv")
+    data=pd.read_csv("Dataset.csv")
 
     df1=data[["CustomerID","Gender","Age","Annual Income (Rs)","Spending Score (1-100)"]]
 

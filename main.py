@@ -17,7 +17,7 @@ def predict():
 
     input_query=np.array([[income,spending]])'''
 
-    data=pd.read_csv("Dataset.csv")
+    data=fetch_latest_dataset()
 
     df1=data[["CustomerID","Gender","Age","Annual Income (Rs)","Spending Score (1-100)"]]
 
@@ -56,12 +56,6 @@ def predict():
 
     }
     return jsonify(str(result))
-@app.route('/data')
-def get_data():
-    dataset = fetch_latest_dataset()
-    if dataset is None:
-        return 'Failed to fetch dataset.'
-    return dataset.to_html()
 
 def fetch_latest_dataset():
     owner = "RahulShingne"

@@ -10,6 +10,10 @@ app=Flask(__name__)
 def home():
     return "Hello World"
 
+@app.route('/read/')
+def read_dataset():
+    return jsonify(fetch_latest_dataset())
+
 @app.route('/predict/')
 def predict():
     '''income = request.form.get('Annual Income (Rs)')
@@ -17,7 +21,8 @@ def predict():
 
     input_query=np.array([[income,spending]])'''
 
-    data=fetch_latest_dataset()
+    d=fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
 
     df1=data[["CustomerID","Gender","Age","Annual Income (Rs)","Spending Score (1-100)"]]
 
@@ -57,6 +62,7 @@ def predict():
     }
     return jsonify(str(result))
 
+
 def fetch_latest_dataset():
     owner = "RahulShingne"
     repo = "flask-test2"
@@ -76,9 +82,8 @@ def fetch_latest_dataset():
 
     response = requests.get(f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{latest_file['path']}")
     response.raise_for_status()
+    return response.text
 
-    df = pd.read_csv(StringIO(response.text))
-    return df
 
 
 if __name__ == '__main__':

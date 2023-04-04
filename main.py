@@ -14,6 +14,14 @@ def home():
 def read_dataset():
     return jsonify(fetch_latest_dataset())
 
+@app.route('/missing/')
+def fill_missing_values():
+    d=fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+    missing_values = data.isnull().sum()
+    return str(missing_values)
+
+
 @app.route('/predict/')
 def predict():
     '''income = request.form.get('Annual Income (Rs)')

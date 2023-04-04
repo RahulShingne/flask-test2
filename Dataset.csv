@@ -1,4 +1,4 @@
-﻿CustomerID,Gender,Age,Annual Income (Rs),Spending Score (1-100)
+﻿CustomerID,Gender,Age,Annual-Income(Rs),Spending-Score(1-100)
 1,Male,34,89,74
 2,Male,31,94,25
 3,Female,50,123,74

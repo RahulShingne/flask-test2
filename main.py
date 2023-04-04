@@ -19,7 +19,7 @@ def fill_missing_values():
     d=fetch_latest_dataset()
     data = pd.read_csv(StringIO(d))
     missing_values = data.isnull().sum()
-    return str(missing_values)
+    return jsonify(str(missing_values))
 
 
 @app.route('/predict/')

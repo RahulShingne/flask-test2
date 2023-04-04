@@ -32,9 +32,8 @@ def predict():
     d=fetch_latest_dataset()
     data = pd.read_csv(StringIO(d))
 
-    df1=data[["CustomerID","Gender","Age","Annual Income (Rs)","Spending Score (1-100)"]]
-
-    X=df1[["Annual Income (Rs)","Spending Score (1-100)"]]
+    df1=data[["CustomerID","Gender","Age","Annual-Income(Rs)","Spending-Score(1-100)"]]
+    X=df1[["Annual-Income(Rs)","Spending-Score(1-100)"]]
     X.head()
 
     from sklearn.cluster import KMeans

@@ -18,7 +18,8 @@ def read_dataset():
 def data_normalization():
     import pandas as pd
     from sklearn.preprocessing import MinMaxScaler
-    df = pd.read_csv("cleaned_data.csv")
+    d=fetch_latest_dataset()
+    df = pd.read_csv(StringIO(d))
     scaler = MinMaxScaler()
     df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']] = scaler.fit_transform(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']])
     return str(df.head())  

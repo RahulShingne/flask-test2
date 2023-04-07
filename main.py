@@ -14,6 +14,15 @@ def home():
 def read_dataset():
     return jsonify(fetch_latest_dataset())
 
+@app.route('/scaler/')
+def data_normalization():
+    import pandas as pd
+    from sklearn.preprocessing import MinMaxScaler
+    df = pd.read_csv("cleaned_data.csv")
+    scaler = MinMaxScaler()
+    df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']] = scaler.fit_transform(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']])
+    return str(df.head())  
+
 @app.route('/missing/')
 def fill_missing_values():
     d=fetch_latest_dataset()

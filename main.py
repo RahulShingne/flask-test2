@@ -14,6 +14,23 @@ def home():
 def read_dataset():
     return jsonify(fetch_latest_dataset())
 
+@app.route('/view/')
+def view_data():
+    column_names = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
+    num_bins = 5
+    d=fetch_latest_dataset()
+    df = pd.read_csv(StringIO(d))
+    histograms = {}
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("df must be a Pandas DataFrame")
+    for col_name in column_names:
+        histograms[col_name], bins = pd.cut(df[col_name], bins=num_bins, retbins=True, include_lowest=True)
+        result=""
+    for col_name in column_names:
+        histogram_data = histograms[col_name].value_counts().sort_index().rename_axis('Bin').reset_index(name='Number of data')
+        result = result + "#" + histogram_data.to_string(index=False)
+    return jsonify(result)
+
 @app.route('/scaler/')
 def data_normalization():
     import pandas as pd

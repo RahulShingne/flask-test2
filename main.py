@@ -21,6 +21,20 @@ def fill_missing_values():
     missing_values = data.isnull().sum()
     return jsonify(str(missing_values))
 
+@app.route('/outlier/')
+def outlier():
+    d=fetch_latest_dataset()
+    df = pd.read_csv(StringIO(d))
+    # Check for outliers and remove them
+    outliers_age = df[(df['Age'] < 18) | (df['Age'] > 80)]
+    outliers_income = df[(df['Annual Income (k$)'] < 10) | (df['Annual Income (k$)'] > 150)]
+    outliers_spending = df[(df['Spending Score (1-100)'] < 0) | (df['Spending Score (1-100)'] > 100)]
+    outliers_removed = pd.concat([outliers_age, outliers_income, outliers_spending]).drop_duplicates()
+    df = df[(df['Age'] >= 18) & (df['Age'] <= 80)]
+    df = df[(df['Annual Income (k$)'] >= 10) & (df['Annual Income (k$)'] <= 150)]
+    df = df[(df['Spending Score (1-100)'] >= 0) & (df['Spending Score (1-100)'] <= 100)]
+    return str(len(outliers_removed))
+
 
 @app.route('/predict/')
 def predict():

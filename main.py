@@ -41,6 +41,36 @@ def data_normalization():
     df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']] = scaler.fit_transform(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']])
     return str(df.head())  
 
+@app.route('/test/')
+def testing():
+    from sklearn.cluster import DBSCAN, KMeans
+    from sklearn.metrics import silhouette_score
+    from sklearn.cluster import AgglomerativeClustering
+
+    d=fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+    X = data.drop(['CustomerID', 'Gender'], axis=1).values
+
+    # KMeans
+    kmeans = KMeans(n_clusters=5, random_state=42).fit(X)
+    kmeans_labels = kmeans.labels_
+    kmeans_score = silhouette_score(X, kmeans_labels)
+
+    # DBSCAN
+    dbscan = DBSCAN(eps=3, min_samples=2).fit(X)
+    dbscan_labels = dbscan.labels_
+    if len(set(dbscan_labels)) > 1:  
+        dbscan_score = silhouette_score(X, dbscan_labels)
+    else:
+        dbscan_score = -1  
+
+
+    agg = AgglomerativeClustering(n_clusters=5)
+    agg.fit(X)
+    labels = agg.labels_
+    silhouette_avg = silhouette_score(X, labels)
+    return jsonify(str(round(kmeans_score,4))+" "+str(round(dbscan_score,5))+" "+str(round(silhouette_avg,4)))
+
 @app.route('/missing/')
 def fill_missing_values():
     d=fetch_latest_dataset()

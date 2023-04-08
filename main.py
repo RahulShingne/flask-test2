@@ -87,7 +87,7 @@ def process_data():
     # Do something with the inputs
     
     # Return the same inputs as a response
-    response_data = {'input1': input1, 'input2': input2, 'input3': input3}
+    response_data = input1+" "+input2+" "+input3
     return jsonify(response_data)
 
 

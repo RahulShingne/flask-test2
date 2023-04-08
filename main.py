@@ -78,15 +78,12 @@ def fill_missing_values():
     missing_values = data.isnull().sum()
     return jsonify(str(missing_values))
 
-@app.route('/process_data/', methods=['GET'])
+@app.route('/process_data/', methods=['POST'])
 def process_data():
-    if request.method == 'POST':
-        input_data = request.form['input_data']
-        # do something with the input_data, such as store it in a database or run some calculations
-        response_data = "Received input data: {}".format(input_data)
-        return response_data
-    else:
-        return "This endpoint only accepts POST requests"
+    input_data = request.get_data()
+    # do something with the input_data, such as store it in a database or run some calculations
+    response_data = "Received input data: {}".format(input_data)
+    return response_data
 
 
 @app.route('/outlier/')

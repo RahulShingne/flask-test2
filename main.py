@@ -69,7 +69,7 @@ def testing():
     agg.fit(X)
     labels = agg.labels_
     silhouette_avg = silhouette_score(X, labels)
-    return jsonify(str(round(kmeans_score,4))+" "+str(round(dbscan_score,5))+" "+str(round(silhouette_avg,4)))
+    return jsonify(str(round(kmeans_score,4))+" "+str(round(dbscan_score,4))+" "+str(round(silhouette_avg,4)))
 
 @app.route('/missing/')
 def fill_missing_values():

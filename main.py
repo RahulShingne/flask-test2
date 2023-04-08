@@ -80,13 +80,15 @@ def fill_missing_values():
 
 @app.route('/process_data/', methods=['POST'])
 def process_data():
-    input_data1 = request.form.get('input_data1')
-    input_data2 = request.form.get('input_data2')
-    input_data3 = request.form.get('input_data3')
+    input1 = request.json['input1']
+    input2 = request.json['input2']
+    input3 = request.json['input3']
     
-    # do something with the input data, such as store it in a database or run some calculations
+    # Do something with the inputs
     
-    return jsonify({'output1': output1, 'output2': output2, 'output3': output3})
+    # Return the same inputs as a response
+    response_data = {'input1': input1, 'input2': input2, 'input3': input3}
+    return jsonify(response_data)
 
 
 

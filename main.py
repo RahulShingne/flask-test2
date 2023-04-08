@@ -86,8 +86,7 @@ def process_data():
     
     # do something with the input data, such as store it in a database or run some calculations
     
-    response_data = "Received input data: {}, {}, {}".format(input_data1, input_data2, input_data3)
-    return response_data
+    return jsonify({'output1': output1, 'output2': output2, 'output3': output3})
 
 
 

@@ -78,7 +78,7 @@ def fill_missing_values():
     missing_values = data.isnull().sum()
     return jsonify(str(missing_values))
 
-@app.route('/process_data/', methods=['POST'])
+@app.route('/process_data/', methods=['GET'])
 def process_data():
     input_data = request.form['input_data']
     # do something with the input_data, such as store it in a database or run some calculations

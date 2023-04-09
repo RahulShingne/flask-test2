@@ -50,7 +50,7 @@ def show_cluster1():
     return jsonify(result_str)
 
 @app.route('/c2/')
-def show_cluster1():
+def show_cluster2():
     d = fetch_latest_dataset()
     data = pd.read_csv(StringIO(d))
 
@@ -65,7 +65,7 @@ def show_cluster1():
     return jsonify(result_str)
 
 @app.route('/c3/')
-def show_cluster1():
+def show_cluster3():
     d = fetch_latest_dataset()
     data = pd.read_csv(StringIO(d))
 
@@ -80,7 +80,7 @@ def show_cluster1():
     return jsonify(result_str)
 
 @app.route('/c4/')
-def show_cluster1():
+def show_cluster4():
     d = fetch_latest_dataset()
     data = pd.read_csv(StringIO(d))
 
@@ -95,7 +95,7 @@ def show_cluster1():
     return jsonify(result_str)
 
 @app.route('/c5/')
-def show_cluster1():
+def show_cluster5():
     d = fetch_latest_dataset()
     data = pd.read_csv(StringIO(d))
 

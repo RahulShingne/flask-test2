@@ -49,6 +49,66 @@ def show_cluster1():
     result_str = cluster_df.to_string(index=False)
     return jsonify(result_str)
 
+@app.route('/c2/')
+def show_cluster1():
+    d = fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+
+    df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
+    X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
+    from sklearn.cluster import KMeans
+    km = KMeans(n_clusters=5)
+    km.fit(X)
+    df1["label"] = km.predict(X)
+    cluster_df = df1[df1["label"] == 1]
+    result_str = cluster_df.to_string(index=False)
+    return jsonify(result_str)
+
+@app.route('/c3/')
+def show_cluster1():
+    d = fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+
+    df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
+    X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
+    from sklearn.cluster import KMeans
+    km = KMeans(n_clusters=5)
+    km.fit(X)
+    df1["label"] = km.predict(X)
+    cluster_df = df1[df1["label"] == 2]
+    result_str = cluster_df.to_string(index=False)
+    return jsonify(result_str)
+
+@app.route('/c4/')
+def show_cluster1():
+    d = fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+
+    df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
+    X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
+    from sklearn.cluster import KMeans
+    km = KMeans(n_clusters=5)
+    km.fit(X)
+    df1["label"] = km.predict(X)
+    cluster_df = df1[df1["label"] == 3]
+    result_str = cluster_df.to_string(index=False)
+    return jsonify(result_str)
+
+@app.route('/c5/')
+def show_cluster1():
+    d = fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+
+    df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
+    X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
+    from sklearn.cluster import KMeans
+    km = KMeans(n_clusters=5)
+    km.fit(X)
+    df1["label"] = km.predict(X)
+    cluster_df = df1[df1["label"] == 4]
+    result_str = cluster_df.to_string(index=False)
+    return jsonify(result_str)
+
 @app.route('/scaler/')
 def data_normalization():
     import pandas as pd

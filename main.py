@@ -32,6 +32,30 @@ def view_data():
         result = result + "#" + histogram_data.to_string(index=False)
     return jsonify(result)
 
+@app.route('/output/')
+def analysis():
+    d = fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+
+    df1 = data[["CustomerID","Gender","Age","Annual Income (k$)","Spending Score (1-100)"]]
+    X = df1[["Annual Income (k$)","Spending Score (1-100)"]]
+
+    from sklearn.cluster import KMeans
+    km = KMeans(n_clusters=5)
+    km.fit(X)
+    y = km.predict(X)
+    df1["label"] = y
+
+    result = {}
+    for i in range(5):
+        cluster = df1[df1["label"]==i]
+        result[str(i)] = {
+            "mean_annual_income": cluster["Annual Income (k$)"].mean(),
+            "mean_spending_score": cluster["Spending Score (1-100)"].mean()
+        }
+
+    return jsonify(result)
+
 @app.route('/c1/')
 def show_cluster1():
     d = fetch_latest_dataset()

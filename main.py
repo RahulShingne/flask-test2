@@ -32,6 +32,23 @@ def view_data():
         result = result + "#" + histogram_data.to_string(index=False)
     return jsonify(result)
 
+@app.route('/c1/')
+def show_cluster1():
+    d = fetch_latest_dataset()
+    data = pd.read_csv(StringIO(d))
+
+    df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
+    X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
+
+    from sklearn.cluster import KMeans
+    km = KMeans(n_clusters=5)
+    km.fit(X)
+    df1["label"] = km.predict(X)
+
+    cluster_df = df1[df1["label"] == 0]
+    result_str = cluster_df.to_string(index=False)
+    return jsonify(result_str)
+
 @app.route('/scaler/')
 def data_normalization():
     import pandas as pd

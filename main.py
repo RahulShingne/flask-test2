@@ -50,9 +50,10 @@ def analysis():
     for i in range(5):
         cluster = df1[df1["label"]==i]
         result[str(i)] = {
-            "mean_annual_income": cluster["Annual Income (k$)"].mean(),
-            "mean_spending_score": cluster["Spending Score (1-100)"].mean()
-        }
+        "num_data_items": len(cluster),
+        "mean_annual_income": cluster["Annual Income (k$)"].mean(),
+        "mean_spending_score": cluster["Spending Score (1-100)"].mean()
+    }
 
     return jsonify(result)
 

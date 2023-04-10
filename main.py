@@ -14,7 +14,7 @@ def home():
 
 @app.route('/read/')
 def read_dataset():
-    return jsonify(fetch_latest_dataset())
+    return jsonify(fetch_latest_dataset().to_dict())
 
 @app.route('/view/')
 def view_data():

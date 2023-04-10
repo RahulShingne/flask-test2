@@ -20,8 +20,8 @@ def read_dataset():
 def view_data():
     column_names = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
     num_bins = 5
-    d=fetch_latest_dataset()
-    df = pd.read_csv(StringIO(d))
+  
+    df = fetch_latest_dataset()
     histograms = {}
     if not isinstance(df, pd.DataFrame):
         raise TypeError("df must be a Pandas DataFrame")
@@ -35,8 +35,8 @@ def view_data():
 
 @app.route('/output/')
 def analysis():
-    d = fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+    
+    data = fetch_latest_dataset()
 
     df1 = data[["CustomerID","Gender","Age","Annual Income (k$)","Spending Score (1-100)"]]
     X = df1[["Annual Income (k$)","Spending Score (1-100)"]]
@@ -60,8 +60,8 @@ def analysis():
 
 @app.route('/c1/')
 def show_cluster1():
-    d = fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+  
+    data = fetch_latest_dataset()
 
     df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
     X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
@@ -77,8 +77,8 @@ def show_cluster1():
 
 @app.route('/c2/')
 def show_cluster2():
-    d = fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+    
+    data = fetch_latest_dataset()
 
     df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
     X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
@@ -92,8 +92,7 @@ def show_cluster2():
 
 @app.route('/c3/')
 def show_cluster3():
-    d = fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+    data = fetch_latest_dataset()
 
     df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
     X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
@@ -107,8 +106,7 @@ def show_cluster3():
 
 @app.route('/c4/')
 def show_cluster4():
-    d = fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+    data = fetch_latest_dataset()
 
     df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
     X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
@@ -122,8 +120,8 @@ def show_cluster4():
 
 @app.route('/c5/')
 def show_cluster5():
-    d = fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+  
+    data = fetch_latest_dataset()
 
     df1 = data[["CustomerID", "Gender", "Age", "Annual Income (k$)", "Spending Score (1-100)"]]
     X = df1[["Annual Income (k$)", "Spending Score (1-100)"]]
@@ -139,8 +137,7 @@ def show_cluster5():
 def data_normalization():
     import pandas as pd
     from sklearn.preprocessing import MinMaxScaler
-    d=fetch_latest_dataset()
-    df = pd.read_csv(StringIO(d))
+    df = fetch_latest_dataset()
     scaler = MinMaxScaler()
     df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']] = scaler.fit_transform(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']])
     return str(df.head())  
@@ -151,8 +148,7 @@ def testing():
     from sklearn.metrics import silhouette_score
     from sklearn.cluster import AgglomerativeClustering
 
-    d=fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+    data = fetch_latest_dataset()
     X = data.drop(['CustomerID', 'Gender'], axis=1).values
 
     # KMeans
@@ -177,8 +173,8 @@ def testing():
 
 @app.route('/missing/')
 def fill_missing_values():
-    d=fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+  
+    data = fetch_latest_dataset()
     missing_values = data.isnull().sum()
     return jsonify(str(missing_values))
 
@@ -210,8 +206,7 @@ def process_data():
 
 @app.route('/outlier/')
 def outlier():
-    d=fetch_latest_dataset()
-    df = pd.read_csv(StringIO(d))
+    df = fetch_latest_dataset()
     # Check for outliers and remove them
     outliers_age = df[(df['Age'] < 18) | (df['Age'] > 80)]
     outliers_income = df[(df['Annual Income (k$)'] < 10) | (df['Annual Income (k$)'] > 150)]
@@ -230,8 +225,7 @@ def predict():
 
     input_query=np.array([[income,spending]])'''
 
-    d=fetch_latest_dataset()
-    data = pd.read_csv(StringIO(d))
+    data = fetch_latest_dataset()
 
     df1=data[["CustomerID","Gender","Age","Annual Income (k$)","Spending Score (1-100)"]]
     X=df1[["Annual Income (k$)","Spending Score (1-100)"]]
@@ -272,7 +266,7 @@ def predict():
 
 
 def fetch_latest_dataset():
-    owner = "RahulShingne"
+    '''owner = "RahulShingne"
     repo = "flask-test2"
     branch = "main"
 
@@ -289,8 +283,9 @@ def fetch_latest_dataset():
         raise Exception("No CSV file found in the repository")
 
     response = requests.get(f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{latest_file['path']}")
-    response.raise_for_status()
-    return response.text
+    response.raise_for_status()'''
+    data=pd.read_csv('customers_data.csv')
+    return data
 
 df = pd.read_csv('Mall_Customers_KNN.csv')
 

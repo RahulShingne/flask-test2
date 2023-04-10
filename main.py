@@ -196,9 +196,9 @@ def process_data():
     knn.fit(X, y)
     # Get the input data from the request
     data = request.get_json()
-    age = data['age']
-    income = data['income']
-    score = data['score']
+    age = data['input1']
+    income = data['input2']
+    score = data['input3']
     
     # Make the prediction
     prediction = knn.predict([[age, income, score]])

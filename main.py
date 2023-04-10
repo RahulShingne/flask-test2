@@ -289,7 +289,7 @@ knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']], df['Cluster'])
 
 @app.route('/knn', methods=['POST'])
-def predict():
+def knn_method():
     # Get the request data
     data = request.get_json()
     age = data['Age']

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify,request
 import os
 import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
 import requests
 
 from io import StringIO
@@ -278,6 +279,28 @@ def fetch_latest_dataset():
     response = requests.get(f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{latest_file['path']}")
     response.raise_for_status()
     return response.text
+
+df = pd.read_csv('Mall_Customers_KNN.csv')
+
+# Create the KNN model
+knn = KNeighborsClassifier(n_neighbors=5)
+
+# Fit the model with the data
+knn.fit(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']], df['Cluster'])
+
+@app.route('/knn', methods=['POST'])
+def predict():
+    # Get the request data
+    data = request.get_json()
+    age = data['Age']
+    income = data['Annual Income (k$)']
+    spending = data['Spending Score (1-100)']
+    
+    # Predict the cluster label using KNN
+    prediction = knn.predict([[age, income, spending]])[0]
+    
+    # Return the predicted value as a JSON response
+    return jsonify({'Cluster': int(prediction)})
 
 
 

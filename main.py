@@ -184,15 +184,27 @@ def fill_missing_values():
 
 @app.route('/process_data/', methods=['POST'])
 def process_data():
-    input1 = request.json['input1']
-    input2 = request.json['input2']
-    input3 = request.json['input3']
+    # Load the dataset
+    data = pd.read_csv('Mall_Customers_KNN.csv')
+
+    # Set the features and labels
+    X = data[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].values
+    y = data['Cluster'].values
+
+    # Create the KNN classifier
+    knn = KNeighborsClassifier(n_neighbors=5)
+    knn.fit(X, y)
+    # Get the input data from the request
+    data = request.get_json()
+    age = data['age']
+    income = data['income']
+    score = data['score']
     
-    # Do something with the inputs
+    # Make the prediction
+    prediction = knn.predict([[age, income, score]])
     
-    # Return the same inputs as a response
-    response_data = input1+" "+input2+" "+input3
-    return jsonify(response_data)
+    # Return the prediction as a JSON response
+    return jsonify({'cluster': prediction[0]})
 
 
 
